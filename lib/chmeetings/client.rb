@@ -4,6 +4,7 @@ Dir[File.expand_path('client/*.rb', __dir__)].sort.each { |f| require f }
 
 module Chmeetings
   class Client
+    include Batch
     include Person
     include Family
     include FamilyMember

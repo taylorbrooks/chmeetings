@@ -10,6 +10,8 @@ class ChmeetingsMock < Sinatra::Base
     'family-members' => :family_members,
     'groups' => :groups,
     'contributions' => :contributions,
+    'contributions/batches' => :batches,
+    'contributions/batches/:id' => :batch,
     'pledges' => :pledges,
     'campaigns' => :campaigns
   }.each do |end_point, json|
@@ -22,6 +24,7 @@ class ChmeetingsMock < Sinatra::Base
   {
     'people' => :person,
     'people/delete' => :person,
+    'contributions/batches' => :batch,
     'families' => :family,
     'families/delete' => :family,
     'family-members' => :family_member,
@@ -37,10 +40,21 @@ class ChmeetingsMock < Sinatra::Base
   {
     'people' => :person,
     'families' => :family,
-    'family-members' => :family_member
+    'family-members' => :family_member,
+    'contributions/batches/:id' => :batch
   }.each do |end_point, json|
     put "/api/v1/#{end_point}" do
       json_response 200, "#{json}.json"
+    end
+  end
+
+  # DELETE requests
+  [
+    'contributions/batches/:id'
+  ].each do |end_point|
+    delete "/api/v1/#{end_point}" do
+      content_type :json
+      status 204
     end
   end
 
